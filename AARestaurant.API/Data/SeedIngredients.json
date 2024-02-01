@@ -1,0 +1,44 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Sesame",
+    "IsVeganFriendly": true,
+    "IsAllergen": true
+  },
+  {
+    "Id": 2,
+    "Name": "Beans",
+    "IsVeganFriendly": true,
+    "IsAllergen": false
+  },
+  {
+    "Id": 3,
+    "Name": "Cheese",
+    "IsVeganFriendly": false,
+    "IsAllergen": false
+  },
+  {
+    "Id": 4,
+    "Name": "Tomato",
+    "IsVeganFriendly": true,
+    "IsAllergen": false
+  },
+  {
+    "Id": 5,
+    "Name": "Spinach",
+    "IsVeganFriendly": true,
+    "IsAllergen": false
+  },
+  {
+    "Id": 6,
+    "Name": "Chicken",
+    "IsVeganFriendly": false,
+    "IsAllergen": true
+  },
+  {
+    "Id": 7,
+    "Name": "Pasta",
+    "IsVeganFriendly": true,
+    "IsAllergen": false
+  }
+]
