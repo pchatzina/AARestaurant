@@ -15,72 +15,71 @@ namespace AARestaurant.API.Migrations
                 name: "DailyMenu",
                 columns: table => new
                 {
-                    DailyMenuId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DailyMenu", x => x.DailyMenuId);
+                    table.PrimaryKey("PK_DailyMenu", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Ingredients",
                 columns: table => new
                 {
-                    IngredientId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IngredientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsVeganFriendly = table.Column<bool>(type: "bit", nullable: false),
                     IsAllergen = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredients", x => x.IngredientId);
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Dishes",
                 columns: table => new
                 {
-                    DishId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DishName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DishDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DailyMenuId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DailyMenuId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dishes", x => x.DishId);
+                    table.PrimaryKey("PK_Dishes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Dishes_DailyMenu_DailyMenuId",
                         column: x => x.DailyMenuId,
                         principalTable: "DailyMenu",
-                        principalColumn: "DailyMenuId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "IngredientsDishes",
+                name: "DishIngredient",
                 columns: table => new
                 {
                     DishId = table.Column<int>(type: "int", nullable: false),
-                    IngredientId = table.Column<int>(type: "int", nullable: false)
+                    IngredientsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IngredientsDishes", x => new { x.DishId, x.IngredientId });
+                    table.PrimaryKey("PK_DishIngredient", x => new { x.DishId, x.IngredientsId });
                     table.ForeignKey(
-                        name: "FK_IngredientsDishes_Dishes_DishId",
+                        name: "FK_DishIngredient_Dishes_DishId",
                         column: x => x.DishId,
                         principalTable: "Dishes",
-                        principalColumn: "DishId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IngredientsDishes_Ingredients_IngredientId",
-                        column: x => x.IngredientId,
+                        name: "FK_DishIngredient_Ingredients_IngredientsId",
+                        column: x => x.IngredientsId,
                         principalTable: "Ingredients",
-                        principalColumn: "IngredientId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -90,16 +89,16 @@ namespace AARestaurant.API.Migrations
                 column: "DailyMenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IngredientsDishes_IngredientId",
-                table: "IngredientsDishes",
-                column: "IngredientId");
+                name: "IX_DishIngredient_IngredientsId",
+                table: "DishIngredient",
+                column: "IngredientsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IngredientsDishes");
+                name: "DishIngredient");
 
             migrationBuilder.DropTable(
                 name: "Dishes");

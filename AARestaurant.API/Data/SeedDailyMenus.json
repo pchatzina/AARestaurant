@@ -1,0 +1,79 @@
+﻿[
+  {
+    "Date": "2024-03-01",
+    "Dishes": [
+      {
+        "DishId": 1
+      },
+      {
+        "DishId": 2
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-02",
+    "Dishes": [
+      {
+        "DishId": 2
+      },
+      {
+        "DishId": 3
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-03",
+    "Dishes": [
+      {
+        "DishId": 1
+      },
+      {
+        "DishId": 3
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-04",
+    "Dishes": [
+      {
+        "DishId": 1
+      },
+      {
+        "DishId": 2
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-05",
+    "Dishes": [
+      {
+        "DishId": 2
+      },
+      {
+        "DishId": 3
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-06",
+    "Dishes": [
+      {
+        "DishId": 1
+      },
+      {
+        "DishId": 3
+      }
+    ]
+  },
+  {
+    "Date": "2024-03-07",
+    "Dishes": [
+      {
+        "DishId": 1
+      },
+      {
+        "DishId": 2
+      }
+    ]
+  }
+]

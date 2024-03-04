@@ -2,8 +2,8 @@
 {
     public class DailyMenu
     {
-        public int DailyMenuId { get; set; }
+        public int Id { get; set; }
         public DateOnly Date { get; set; }
-        public ICollection<Dish> DailyMenuDishes { get; set; }
+        public ICollection<Dish> Dishes { get; set; }
     }
 }

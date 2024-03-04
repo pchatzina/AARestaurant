@@ -2,10 +2,9 @@
 {
     public class Ingredient
     {
-        public int IngredientId { get; set; }
-        public string IngredientName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public bool IsVeganFriendly { get; set; }
         public bool IsAllergen { get; set; }
-        public ICollection<IngredientDish> Dishes { get; set; }
     }
 }

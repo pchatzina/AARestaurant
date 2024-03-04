@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AARestaurant.API.Models.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System.Reflection.Metadata;
@@ -7,37 +9,29 @@ namespace AARestaurant.API.Models
 {
     public class AARestaurantDbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Dish> Dishes { get; set; }
-        public DbSet<IngredientDish> IngredientsDishes { get; set; }
         public DbSet<DailyMenu> DailyMenu { get; set; }
 
-        public string DbPath { get; }
+
+        public AARestaurantDbContext(IConfiguration configuration, DbContextOptions<AARestaurantDbContext> options) : base(options)
+        {
+            _configuration = configuration;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Data Source=AA-36H0HS3;Initial Catalog=AARestaurant;Integrated Security=True;Trust Server Certificate=True");
+            options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IngredientDish>()
-                .HasKey(id => new { id.DishId, id.IngredientId });
 
-            modelBuilder.Entity<IngredientDish>()
-                .HasOne(id => id.Dish)
-                .WithMany(d => d.Ingredients)
-                .HasForeignKey(id => id.DishId);
+            new DishEntityTypeConfiguration().Configure(modelBuilder.Entity<Dish>());
+            new IngredientEntityTypeConfiguration().Configure(modelBuilder.Entity<Ingredient>());
+            new DailyMenuEntityTypeConfiguration().Configure(modelBuilder.Entity<DailyMenu>());
 
-            modelBuilder.Entity<IngredientDish>()
-                .HasOne(id => id.Ingredient)
-                .WithMany(i => i.Dishes)
-                .HasForeignKey(id => id.IngredientId);
-
-            modelBuilder.Entity<DailyMenu>()
-                .HasMany(p => p.DailyMenuDishes)
-                .WithOne(c => c.DailyMenu)
-                .HasForeignKey(c => c.DailyMenuId);
         }
 
     }

@@ -1,0 +1,42 @@
+﻿[
+  {
+    "DishId": 1,
+    "IngredientsId": 1
+  },
+  {
+    "DishId": 1,
+    "IngredientsId": 2
+  },
+  {
+    "DishId": 1,
+    "IngredientsId": 4
+  },
+  {
+    "DishId": 1,
+    "IngredientsId": 5
+  },
+  {
+    "DishId": 2,
+    "IngredientsId": 3
+  },
+  {
+    "DishId": 2,
+    "IngredientsId": 5
+  },
+  {
+    "DishId": 2,
+    "IngredientsId": 6
+  },
+  {
+    "DishId": 3,
+    "IngredientsId": 3
+  },
+  {
+    "DishId": 3,
+    "IngredientsId": 4
+  },
+  {
+    "DishId": 3,
+    "IngredientsId": 7
+  }
+]

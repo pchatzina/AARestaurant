@@ -24,40 +24,40 @@ namespace AARestaurant.API.Migrations
 
             modelBuilder.Entity("AARestaurant.API.Models.DailyMenu", b =>
                 {
-                    b.Property<int>("DailyMenuId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DailyMenuId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
-                    b.HasKey("DailyMenuId");
+                    b.HasKey("Id");
 
                     b.ToTable("DailyMenu");
                 });
 
             modelBuilder.Entity("AARestaurant.API.Models.Dish", b =>
                 {
-                    b.Property<int>("DishId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DishId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DailyMenuId")
+                    b.Property<int?>("DailyMenuId")
                         .HasColumnType("int");
 
-                    b.Property<string>("DishDescription")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DishName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DishId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DailyMenuId");
 
@@ -66,15 +66,11 @@ namespace AARestaurant.API.Migrations
 
             modelBuilder.Entity("AARestaurant.API.Models.Ingredient", b =>
                 {
-                    b.Property<int>("IngredientId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
-
-                    b.Property<string>("IngredientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsAllergen")
                         .HasColumnType("bit");
@@ -82,67 +78,53 @@ namespace AARestaurant.API.Migrations
                     b.Property<bool>("IsVeganFriendly")
                         .HasColumnType("bit");
 
-                    b.HasKey("IngredientId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("AARestaurant.API.Models.IngredientDish", b =>
+            modelBuilder.Entity("DishIngredient", b =>
                 {
                     b.Property<int>("DishId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IngredientId")
+                    b.Property<int>("IngredientsId")
                         .HasColumnType("int");
 
-                    b.HasKey("DishId", "IngredientId");
+                    b.HasKey("DishId", "IngredientsId");
 
-                    b.HasIndex("IngredientId");
+                    b.HasIndex("IngredientsId");
 
-                    b.ToTable("IngredientsDishes");
+                    b.ToTable("DishIngredient");
                 });
 
             modelBuilder.Entity("AARestaurant.API.Models.Dish", b =>
                 {
-                    b.HasOne("AARestaurant.API.Models.DailyMenu", "DailyMenu")
-                        .WithMany("DailyMenuDishes")
-                        .HasForeignKey("DailyMenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DailyMenu");
+                    b.HasOne("AARestaurant.API.Models.DailyMenu", null)
+                        .WithMany("Dishes")
+                        .HasForeignKey("DailyMenuId");
                 });
 
-            modelBuilder.Entity("AARestaurant.API.Models.IngredientDish", b =>
+            modelBuilder.Entity("DishIngredient", b =>
                 {
-                    b.HasOne("AARestaurant.API.Models.Dish", "Dish")
-                        .WithMany("Ingredients")
+                    b.HasOne("AARestaurant.API.Models.Dish", null)
+                        .WithMany()
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AARestaurant.API.Models.Ingredient", "Ingredient")
-                        .WithMany("Dishes")
-                        .HasForeignKey("IngredientId")
+                    b.HasOne("AARestaurant.API.Models.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Dish");
-
-                    b.Navigation("Ingredient");
                 });
 
             modelBuilder.Entity("AARestaurant.API.Models.DailyMenu", b =>
-                {
-                    b.Navigation("DailyMenuDishes");
-                });
-
-            modelBuilder.Entity("AARestaurant.API.Models.Dish", b =>
-                {
-                    b.Navigation("Ingredients");
-                });
-
-            modelBuilder.Entity("AARestaurant.API.Models.Ingredient", b =>
                 {
                     b.Navigation("Dishes");
                 });
